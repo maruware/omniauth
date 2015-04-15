@@ -451,6 +451,9 @@ module OmniAuth
     def redirect(uri)
       r = Rack::Response.new
 
+      if options[:headers]
+        r.headers = r.headers.merge(options[:headers])
+      end
       if options[:iframe]
         r.write("<script type='text/javascript' charset='utf-8'>top.location.href = '#{uri}';</script>")
       else
